@@ -1,26 +1,144 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-text-secondary: rgb(138 138 138);
+  --color-separator: rgb(68 68 68);
+  --color-accent: rgb(138 56 245);
+  --color-error: rgb(254 28 28);
+  --color-glass: rgb(119 119 119 / 0.30000001192092896);
+
+  --gradient-dark-linear: var(
+    --dark-linear,
+    linear-gradient(83deg, #0a0a0a 7.75%, #252525 93.48%)
+  );
+
+  --font-test-manuka: "Test Manuka", sans-serif;
+  --font-dm-sans: "DM Sans", sans-serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --background: rgb(17 18 18);
+  --foreground: rgb(232 232 232);
+}
+
+/* ------------------------- custom css ------------------------- */
+@layer base {
+  body {
+    @apply bg-background text-foreground m-0 p-0;
+  }
+  h1 {
+    @apply text-[240px] font-bold uppercase font-test-manuka;
+  }
+
+  h2 {
+    @apply text-[48px] tracking-tighter font-light font-dm-sans;
+  }
+
+  h3 {
+    @apply text-[96px] font-bold font-test-manuka;
+  }
+
+  h4 {
+    @apply text-[40px] font-bold font-test-manuka;
+  }
+
+  h5 {
+    @apply text-[32px] font-normal font-dm-sans leading-tight;
+  }
+
+  h6 {
+    @apply text-[16px] font-light font-dm-sans;
+  }
+
+  span {
+    @apply text-[32px] font-light font-dm-sans;
+  }
+
+  li {
+    @apply text-[24px] tracking-tighter font-normal font-dm-sans list-none;
+  }
+
+  p {
+    @apply text-[20px] font-normal font-dm-sans;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .container {
+    @apply w-full mx-auto;
+    container-type: inline-size;
+  }
+  /* ---------------------------- Navbar ---------------------------- */
+  .nav-container {
+    @apply relative top-0 left-0 right-0 z-50;
+  }
+  .nav-content {
+    @apply w-full mx-auto px-8 py-6 xl:px-14 xl:py-10 2xl:px-16 2xl:py-11;
+  }
+  .nav-links {
+    @apply flex-center space-x-8 2xl:space-x-14;
+  }
+
+  /* ---------------------------- Buttons ---------------------------- */
+  button {
+    @apply cursor-pointer;
+  }
+  .switch-btn {
+    @apply glass-effect font-test-manuka text-3xl tracking-wide rounded-full flex-center gap-2.5 py-1 px-1.5;
+
+    .btn-icon {
+      @apply px-5 py-2.5 rounded-full;
+    }
+
+    .active {
+      @apply gradient-dark-linear;
+    }
+  }
+
+  /* ---------------------------- Hero Section ---------------------------- */
+  .hero-container {
+    @apply relative h-[1000px] w-[667px];
+  }
+  .hero-image {
+    background: url("/images/hero-image.png") no-repeat center center;
+    background-size: contain;
+    height: 100%;
+    width: 100%;
+  }
+  .gradient {
+    @apply absolute bottom-0 right-0 left-0 h-80 bg-gradient-to-t from-background to-background/0;
+  }
+  .hero-animated-text {
+    .text-snehashis {
+      @apply absolute top-[40%] left-[10%] z-10;
+    }
+    .text-gharai {
+      @apply absolute top-[25%] right-[10%] -z-10;
+    }
+    .text-subtitle {
+      @apply absolute top-[30%] left-[10%] z-10 text-5xl font-test-manuka font-bold tracking-normal;
+
+      .ampersand {
+        @apply font-dm-sans font-bold text-5xl;
+      }
+    }
+  }
+}
+
+/* Utility classes */
+@utility flex-center {
+  @apply flex items-center justify-center;
+}
+
+@utility glass-effect {
+  @apply bg-glass border border-white/20  shadow-lg;
+}
+
+@utility gradient-dark-linear {
+  background: var(--gradient-dark-linear);
 }
