@@ -40,7 +40,7 @@
   }
 
   h3 {
-    @apply text-[96px] font-bold font-test-manuka;
+    @apply text-[96px] font-bold leading-28 font-test-manuka;
   }
 
   h4 {
