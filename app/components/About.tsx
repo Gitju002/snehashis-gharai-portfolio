@@ -51,7 +51,7 @@ const About = () => {
       {/* Image Content */}
       <VStack padding="none">
         <Container padding="none" className="flex-col flex-center gap-16">
-          <Grid gap={8} cols="cols-6">
+          <Grid cols="cols-6" className="gap-8">
             <p className="col-span-2 w-[75%] mt-24">
               I always try to learn and adapt new skills to cope with modern
               trends. With each project, work is pushed to new horizons, always
@@ -73,7 +73,7 @@ const About = () => {
       <VStack>
         <Container padding="none">
           <h2>I can help you with ...</h2>
-          <Grid gap={8} cols="cols-6" className="mt-16">
+          <Grid cols="cols-6" className="gap-8 mt-16">
             {options.map((option) => (
               <div key={option.key} className="col-span-2">
                 <h6>{option.key}</h6>
