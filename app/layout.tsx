@@ -88,7 +88,7 @@ export const metadata: Metadata = {
     images: ["/images/twitter-card.jpg"],
   },
   verification: {
-    google: "your-google-verification-code",
+    google: "",
   },
   alternates: {
     canonical: "https://snehashisgharai.me",

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     title: "Contact Snehashis Gharai | Frontend Developer & Designer",
     description:
       "Get in touch with Snehashis Gharai for frontend development and design projects. Available for freelance work and full-time opportunities.",
-    url: "https://snehashis-gharai.vercel.app/contact",
+    url: "https://snehashisgharai.me/contact",
   },
 };
 
