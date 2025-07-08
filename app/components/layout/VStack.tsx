@@ -1,13 +1,13 @@
 import { cn } from "@/app/lib/utils";
 import { forwardRef } from "react";
 
-interface SectionProps {
+interface VStackProps {
   padding?: true | false | "none";
   children: React.ReactNode;
   className?: string;
 }
 
-const Section = forwardRef<HTMLDivElement, SectionProps>(
+const VStack = forwardRef<HTMLDivElement, VStackProps>(
   ({ children, className, padding = true }, ref) => {
     // Determine base padding classes
     const basePaddingClasses = (() => {
@@ -17,7 +17,7 @@ const Section = forwardRef<HTMLDivElement, SectionProps>(
     })();
 
     return (
-      <section
+      <div
         ref={ref}
         className={cn(
           // Base styles
@@ -29,11 +29,11 @@ const Section = forwardRef<HTMLDivElement, SectionProps>(
         )}
       >
         {children}
-      </section>
+      </div>
     );
   }
 );
 
-Section.displayName = "Section";
+VStack.displayName = "Section";
 
-export default Section;
+export default VStack;

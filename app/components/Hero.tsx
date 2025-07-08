@@ -1,5 +1,5 @@
 import React from "react";
-import Section from "@/app/components/layout/Section";
+import Section from "@/app/components/layout/VStack";
 import Container from "@/app/components/layout/Container";
 import Image from "next/image";
 import Button from "./ui/Button";
