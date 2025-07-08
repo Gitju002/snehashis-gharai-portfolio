@@ -2,7 +2,7 @@ import React from "react";
 import Section from "@/app/components/layout/VStack";
 import Container from "@/app/components/layout/Container";
 import Image from "next/image";
-import Button from "./ui/Button";
+import SwitchButton from "./ui/SwitchButton";
 
 export default function Hero() {
   return (
@@ -37,7 +37,7 @@ export default function Hero() {
 
           {/* Content Switch Button */}
           <div className="absolute bottom-20 right-56 z-20">
-            <Button />
+            <SwitchButton />
           </div>
         </div>
       </Container>

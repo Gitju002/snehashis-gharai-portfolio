@@ -2,9 +2,10 @@ import React from "react";
 
 type SeparatorProps = {
   width?: "100%" | "75%" | "50%" | "25%";
+  className?: string;
 };
 
-const Separator = ({ width = "100%" }: SeparatorProps) => {
+const Separator = ({ width = "100%", className }: SeparatorProps) => {
   const widthClasses = {
     "100%": "w-full",
     "75%": "w-3/4",
@@ -13,7 +14,9 @@ const Separator = ({ width = "100%" }: SeparatorProps) => {
   };
 
   return (
-    <hr className={`border-b border-separator my-4 ${widthClasses[width]}`} />
+    <hr
+      className={`border-b border-separator my-4 ${widthClasses[width]} ${className}`}
+    />
   );
 };
 

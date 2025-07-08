@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-const Button = () => {
+const SwitchButton = () => {
   const [isActive, setIsActive] = React.useState<string>("profession");
 
   const types = {
@@ -28,4 +28,4 @@ const Button = () => {
   );
 };
 
-export default Button;
+export default SwitchButton;
