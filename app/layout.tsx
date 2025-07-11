@@ -28,6 +28,7 @@ const testManuka = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://snehashisgharai.me"),
   title: "Snehashis Gharai | Frontend Developer & Designer Portfolio",
   description:
     "Snehashis Gharai - Frontend Developer & Designer from India. Helping brands stand out in the digital world with React.js, Next.js, TypeScript, and modern web technologies. Portfolio showcasing web development projects and design work.",
@@ -85,10 +86,7 @@ export const metadata: Metadata = {
       "Frontend Developer & Designer from India. Specializing in React.js, Next.js, and modern web technologies.",
     site: "@snehashis_ai",
     creator: "@snehashis_ai",
-    images: ["/images/twitter-card.jpg"],
-  },
-  verification: {
-    google: "",
+    images: ["/images/og-image.jpg"],
   },
   alternates: {
     canonical: "https://snehashisgharai.me",
