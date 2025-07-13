@@ -27,7 +27,7 @@ const Experience = () => {
   return (
     <section id="experience">
       <VStack>
-        <Container padding="none" className="space-y-16">
+        <Container className="spacing-y">
           <h2>My Experience</h2>
           {experienceDetails.map((experience) => (
             <div key={experience.id} className="space-y-2">

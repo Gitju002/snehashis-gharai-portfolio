@@ -20,9 +20,9 @@ const Footer = () => {
   return (
     <section id="footer">
       <VStack>
-        <Container padding="none">
+        <Container>
           {/* Footer Start */}
-          <Container className="relative px-64">
+          <Container className="relative px-4 md:px-8 lg:px-16 xl:px-24 2xl:px-32 3xl:!px-40 4xl:!px-52">
             <h1 className="footer-heading-text">
               Let<span className="footer-amp-text">&apos;</span>s Work
               <br />
@@ -35,7 +35,7 @@ const Footer = () => {
               height={80}
               width={80}
               alt="arrow"
-              className="absolute rotate-90 top-40 right-72"
+              className="footer-arrow-position arrow-size"
             />
 
             <CircleButton size="2xl" className="circle-btn-position" />
@@ -54,13 +54,13 @@ const Footer = () => {
 
           {/* Footer End */}
           <div className="footer-end-section">
-            <div className="space-y-6">
+            <div className="version-text spacing">
               <p>VERSION</p>
               <h6>2025 © Snehashis Gharai. All Rights Reserved</h6>
             </div>
-            <div className="space-y-6">
+            <div className="socials-text spacing">
               <p>SOCIALS</p>
-              <div className="flex-center gap-x-4">
+              <div className="flex lg:flex-center gap-x-4">
                 {socialLinks.map((link) => (
                   <h6 key={link.id}>
                     <a

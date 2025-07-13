@@ -12,7 +12,8 @@ const Container = forwardRef<HTMLDivElement, ContainerProps>(
     // Determine base padding classes
     const basePaddingClasses = (() => {
       if (padding === false || padding === "none") return "px-0";
-      if (padding === true) return "px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20";
+      if (padding === true)
+        return "px-6 md:px-8 lg:px-12 xl:px-14 2xl:px-16 3xl:px-20 4xl:px-24 5xl:px-28";
       return "";
     })();
 

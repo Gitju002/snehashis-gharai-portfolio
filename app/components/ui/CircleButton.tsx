@@ -10,10 +10,11 @@ type CircleButtonProps = {
 
 const buttonSizes = {
   sm: "w-32 h-32",
-  md: "w-40 h-40",
-  lg: "w-48 h-48",
-  xl: "w-64 h-64",
-  "2xl": "w-72 h-72",
+  md: "md:w-48 md:h-48 w-32 h-32",
+  lg: "lg:w-56 lg:h-56 md:w-48 md:h-48 w-32 h-32",
+  xl: "xl:w-64 xl:h-64 lg:w-56 lg:h-56 md:w-48 md:h-48 w-32 h-32",
+  "2xl":
+    "2xl:w-72 2xl:h-72 xl:w-64 xl:h-64 lg:w-56 lg:h-56 md:w-48 md:h-48 w-32 h-32",
 };
 
 const CircleButton = ({
@@ -34,14 +35,14 @@ const CircleButton = ({
         <span
           className={` ${
             size === "2xl"
-              ? "text-6xl"
+              ? "2xl:text-6xl xl:text-5xl lg:text-4xl md:text-3xl text-xl"
               : size === "xl"
-              ? "text-5xl"
+              ? "xl:text-5xl lg:text-4xl md:text-3xl text-xl"
               : size === "lg"
-              ? "text-4xl"
+              ? "lg:text-4xl md:text-3xl text-xl"
               : size === "md"
-              ? "text-3xl"
-              : "text-2xl"
+              ? "md:text-3xl text-xl"
+              : "text-xl"
           } `}
         >
           Get in touch

@@ -6,6 +6,9 @@
   --color-accent: rgb(138 56 245);
   --color-error: rgb(254 28 28);
   --color-glass: rgb(119 119 119 / 0.30000001192092896);
+  --breakpoint-3xl: 1720px;
+  --breakpoint-4xl: 1920px;
+  --breakpoint-5xl: 2560px;
 
   --gradient-dark-linear: var(
     --dark-linear,
@@ -32,15 +35,15 @@
     @apply bg-background text-foreground m-0 p-0;
   }
   h1 {
-    @apply text-[240px] font-bold font-test-manuka;
+    @apply text-[15vw] lg:text-[10vw] 4xl:text-[12vw] leading-14 md:leading-28 lg:leading-36 2xl:leading-44 font-bold font-test-manuka;
   }
 
   h2 {
-    @apply text-[48px] tracking-tighter font-light font-dm-sans;
+    @apply text-2xl md:text-3xl lg:text-4xl 2xl:text-[48px] tracking-tighter font-light font-dm-sans;
   }
 
   h3 {
-    @apply text-[96px] font-bold leading-24 font-test-manuka;
+    @apply text-[40px] md:text-5xl lg:text-6xl 2xl:text-[96px] font-bold leading-12 lg:leading-16 2xl:leading-24 font-test-manuka;
   }
 
   h4 {
@@ -48,23 +51,23 @@
   }
 
   h5 {
-    @apply text-[32px] font-normal font-dm-sans leading-tight;
+    @apply text-xl lg:text-2xl 2xl:text-[32px] font-normal font-dm-sans leading-tight;
   }
 
   h6 {
-    @apply text-[16px] font-light font-dm-sans;
+    @apply text-sm md:text-[16px] font-light font-dm-sans;
   }
 
   span {
-    @apply text-[32px] font-light font-dm-sans;
+    @apply text-base md:text-lg lg:text-xl 2xl:text-[32px] font-light font-dm-sans;
   }
 
   li {
-    @apply text-[24px] tracking-tighter font-normal font-dm-sans list-none;
+    @apply text-lg 2xl:text-2xl tracking-tighter font-normal font-dm-sans list-none;
   }
 
   p {
-    @apply text-[20px] font-normal font-dm-sans;
+    @apply text-sm lg:text-base 2xl:text-[20px] font-normal font-dm-sans;
   }
 }
 
@@ -89,10 +92,10 @@
     @apply cursor-pointer;
   }
   .switch-btn {
-    @apply glass-effect font-test-manuka text-3xl tracking-wide rounded-full flex-center gap-2.5 py-1 px-1.5;
+    @apply glass-effect font-test-manuka text-lg xl:text-3xl tracking-wide rounded-full flex-center xl:gap-2.5 py-0.5 xl:py-1 px-1 xl:px-1.5;
 
     .btn-icon {
-      @apply px-5 py-2.5 rounded-full;
+      @apply px-3 py-2 xl:px-5 xl:py-2.5 rounded-full;
     }
 
     .active {
@@ -109,7 +112,13 @@
 
   /* ---------------------------- Hero Section ---------------------------- */
   .hero-container {
-    @apply relative h-[1000px] w-[667px];
+    @apply relative min-h-screen flex flex-col items-center md:flex-center;
+    .btn-position {
+      @apply absolute bottom-20 z-20;
+    }
+  }
+  .hero-container-wrapper {
+    @apply w-[85vw] 3xl:w-[80vw] 5xl:w-full max-md:relative max-md:flex max-md:flex-col max-md:items-center;
   }
   .hero-image {
     background: url("/images/hero-image.png") no-repeat center center;
@@ -118,42 +127,67 @@
     width: 100%;
   }
   .gradient {
-    @apply absolute bottom-0 right-0 left-0 h-80 bg-gradient-to-t from-background to-background/0;
+    @apply hidden md:block absolute bottom-0 right-0 left-0 h-80 bg-gradient-to-t from-background to-background/0;
   }
-  .hero-animated-text {
-    .text-snehashis {
-      @apply absolute top-[40%] left-[10%] z-10;
+
+  .gradient-mobile {
+    @apply hidden max-md:block absolute bottom-24 z-10 w-full h-60 bg-gradient-to-t from-background to-background/0;
+  }
+
+  .text-container-desktop {
+    @apply relative w-full hidden md:flex items-center justify-between;
+    .text-wrapper {
+      @apply md:pl-24 2xl:pl-48 md:pb-24 2xl:pb-28 flex flex-col 2xl:gap-y-9 4xl:!gap-y-16;
     }
     .text-gharai {
-      @apply absolute top-[25%] right-[10%] -z-10;
+      @apply absolute right-10 top-12 md:right-0 lg:right-36 xl:right-44 xl:top-14 2xl:right-72 2xl:top-28 4xl:!right-44 4xl:!top-32 -z-10;
     }
     .text-subtitle {
-      @apply absolute top-[30%] left-[10%] z-10 text-5xl font-test-manuka font-bold tracking-normal;
+      @apply text-xl lg:text-4xl 2xl:text-5xl font-test-manuka font-bold tracking-normal max-sm:leading-4;
 
       .ampersand {
-        @apply font-dm-sans font-bold text-5xl;
+        @apply font-dm-sans font-bold text-xl lg:text-4xl 2xl:text-5xl;
       }
     }
   }
 
+  .text-container-mobile {
+    @apply absolute -z-10 mt-12 flex-center flex-col md:hidden;
+  }
+  .text-wrapper-mobile {
+    @apply max-md:block hidden absolute bottom-[25%] left-14 z-20;
+  }
+
   /* ---------------------------- Footer Section ---------------------------- */
   .footer-heading-text {
-    @apply font-test-manuka text-[10rem] font-normal leading-44;
+    @apply font-test-manuka text-[5rem] md:text-[6rem] lg:text-[8rem] 2xl:text-[10rem] font-normal leading-20 md:leading-24 lg:leading-32 2xl:leading-44;
   }
   .footer-amp-text {
-    @apply font-dm-sans text-[10rem];
+    @apply font-dm-sans text-[5rem] md:text-[6rem] lg:text-[8rem] 2xl:text-[10rem] font-bold leading-20 md:leading-24 lg:leading-32 2xl:leading-44;
+  }
+  .footer-arrow-position {
+    @apply absolute rotate-90 top-24 right-2 md:top-16 md:right-4 lg:top-28 lg:right-10 xl:top-28 xl:right-20 2xl:top-40 2xl:right-72;
   }
   .circle-btn-position {
-    @apply absolute bottom-0 right-80;
+    @apply absolute bottom-32 right-10 md:bottom-14 md:right-16 lg:bottom-10 lg:right-32 xl:bottom-4 xl:right-40 2xl:bottom-0 2xl:right-80;
   }
   .contact-details {
-    @apply flex gap-x-4 mt-24;
+    @apply flex max-sm:flex-wrap max-sm:justify-center max-sm:gap-y-4 gap-x-4 mt-24;
   }
   .detail-text {
     @apply glass-effect px-6 py-2.5 rounded-full;
   }
   .footer-end-section {
-    @apply mt-20 flex items-center justify-between;
+    @apply mt-8 md:mt-12 lg:mt-16 2xl:mt-20 flex justify-center gap-y-4 max-md:flex-col md:items-center md:justify-between;
+    .spacing {
+      @apply space-y-2 md:space-y-3 lg:space-y-4 2xl:space-y-6;
+    }
+    .version-text {
+      @apply max-md:text-center;
+    }
+    .socials-text {
+      @apply max-md:flex max-md:flex-col items-center;
+    }
   }
 }
 
@@ -168,6 +202,18 @@
 
 @utility gradient-dark-linear {
   background: var(--gradient-dark-linear);
+}
+
+@utility arrow-size {
+  @apply -ml-3 md:-ml-6 h-10 w-10 md:h-20 md:w-20;
+}
+
+@utility icon-size {
+  @apply size-6 md:size-10;
+}
+
+@utility spacing-y {
+  @apply space-y-6 md:space-y-8 lg:space-y-12 2xl:space-y-16;
 }
 
 /* Screen reader only content */

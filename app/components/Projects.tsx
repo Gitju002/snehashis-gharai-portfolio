@@ -29,7 +29,7 @@ const Projects = () => {
   return (
     <section id="projects">
       <VStack>
-        <Container padding="none" className="space-y-16">
+        <Container className="space-y-16">
           <h2>My Projects</h2>
           {projects.map((project) => (
             <div key={project.id} className="space-y-6">
@@ -42,7 +42,7 @@ const Projects = () => {
                   <React.Fragment key={tech}>
                     <h6>{tech}</h6>
                     {index < project.techStack.length - 1 && (
-                      <h6 className="text-xl">•</h6>
+                      <h6 className="text-sm lg:text-xl">•</h6>
                     )}
                   </React.Fragment>
                 ))}

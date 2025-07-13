@@ -36,12 +36,15 @@ const About = () => {
 
       {/* Text Content */}
       <VStack>
-        <Container padding="none" className="flex-col flex-center gap-16">
+        <Container className="flex-col flex-center gap-16">
           <Grid gap={8} cols="cols-6">
             <div className="col-span-4">
+              {/* Text for SEO only */}
               <h3 className="sr-only">
                 Snehashis Gharai&apos;s Professional Mission
               </h3>
+
+              {/* Motive of About Section */}
               <h5>
                 Helping brands stand out in the digital world. I bring fresh
                 ideas, a hands-on approach, and a passion for creating bold,
@@ -49,9 +52,12 @@ const About = () => {
               </h5>
             </div>
             <div className="col-span-2">
+              {/* Text for SEO only */}
               <h3 className="sr-only">
                 Snehashis Gharai&apos;s Unique Perspective
               </h3>
+
+              {/* Unique Perspective Paragraph */}
               <p>
                 The mix of my skills as a developer and designer — along with my
                 passion for photography — gives me a unique perspective
@@ -65,18 +71,31 @@ const About = () => {
 
       {/* Image Content */}
       <VStack padding="none">
-        <Container padding="none" className="flex-col flex-center gap-16">
+        <Container className="flex-col flex-center gap-16">
           <Grid cols="cols-6" className="gap-8">
-            <div className="col-span-2 w-[75%] mt-24">
+            <div className="col-span-2 w-[75%]">
               <h3 className="sr-only">
                 Snehashis Gharai&apos;s Professional Growth
               </h3>
+
+              {/* Arrow SVG */}
+              <Image
+                src={"/svgs/arrow.svg"}
+                height={80}
+                width={80}
+                alt="Decorative arrow pointing to Snehashis Gharai"
+                className="arrow-size"
+              />
+
+              {/* Professional Growth Paragraph */}
               <p>
                 I always try to learn and adapt new skills to cope with modern
                 trends. With each project, work is pushed to new horizons,
                 always prioritizing quality.
               </p>
             </div>
+
+            {/* About Image */}
             <div className="col-span-4">
               <Image
                 src={"/images/about-image.jpg"}
@@ -92,9 +111,9 @@ const About = () => {
 
       {/* Services */}
       <VStack>
-        <Container padding="none">
+        <Container>
           <h2>I can help you with ...</h2>
-          <Grid cols="cols-6" className="gap-8 mt-16">
+          <Grid cols="cols-6" className="gap-8 mt-4 md:mt-6 lg:mt-8 2xl:mt-16">
             {options.map((option) => (
               <article key={option.key} className="col-span-2">
                 <h6>{option.key}</h6>

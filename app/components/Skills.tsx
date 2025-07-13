@@ -40,20 +40,24 @@ const Skills = () => {
   return (
     <section id="skills">
       <VStack>
-        <Container padding="none" className="space-y-16">
+        <Container className="spacing-y">
           <h2>My Stack</h2>
-          <div className="space-y-16">
+          <div className="spacing-y">
             {Object.entries(skillsData).map(([category, skills]) => (
               <Grid key={category} cols="cols-6">
                 <h3 className="col-span-2">{category}</h3>
                 <div className="col-span-4 flex flex-wrap gap-x-14 gap-y-8">
                   {skills.map((skill) => (
-                    <div key={skill.name} className="flex-center gap-4">
+                    <div
+                      key={skill.name}
+                      className="flex-center gap-2 md:gap-4"
+                    >
                       <Image
                         src={skill.icon}
                         alt={skill.name}
                         height={40}
                         width={40}
+                        className="icon-size"
                       />
                       <span>{skill.name}</span>
                     </div>
