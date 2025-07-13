@@ -6,6 +6,8 @@ type CircleButtonProps = {
   onClick?: () => void;
   disabled?: boolean;
   type?: "button" | "submit";
+  text: string;
+  ariaLabel?: string;
 };
 
 const buttonSizes = {
@@ -23,6 +25,8 @@ const CircleButton = ({
   onClick,
   disabled,
   type = "button",
+  text,
+  ariaLabel = "Circle Button",
 }: CircleButtonProps) => {
   return (
     <div>
@@ -31,6 +35,7 @@ const CircleButton = ({
         onClick={onClick}
         disabled={disabled}
         type={type}
+        aria-label={ariaLabel}
       >
         <span
           className={` ${
@@ -45,7 +50,7 @@ const CircleButton = ({
               : "text-xl"
           } `}
         >
-          Get in touch
+          {text}
         </span>
       </button>
     </div>

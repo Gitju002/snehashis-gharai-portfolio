@@ -1,13 +1,16 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import MobileNav from "./MobileNav";
+import DeskTopNav from "./DeskTopNav";
 
 const Navbar = () => {
   const navigationItems = [
+    { href: "/", label: "Home" },
     { href: "#about", label: "About" },
     { href: "#skills", label: "Skills" },
-    { href: "#projects", label: "Projects" },
     { href: "#experience", label: "Experience" },
+    { href: "#projects", label: "Work" },
     { href: "/contact", label: "Contact" },
   ];
 
@@ -26,20 +29,15 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Navigation Links */}
-          <ul className="nav-links" role="menubar">
-            {navigationItems.map((item) => (
-              <ul key={item.href} role="none">
-                <Link
-                  href={item.href}
-                  role="menuitem"
-                  aria-label={`Navigate to ${item.label}`}
-                >
-                  <li>{item.label}</li>
-                </Link>
-              </ul>
-            ))}
-          </ul>
+          {/* Desktop Navigation - Hidden on mobile */}
+          <div className="hidden lg:block">
+            <DeskTopNav navigationItems={navigationItems} />
+          </div>
+
+          {/* Mobile Navigation - Hidden on desktop */}
+          <div className="lg:hidden">
+            <MobileNav navigationItems={navigationItems} />
+          </div>
         </div>
       </div>
     </nav>
