@@ -69,6 +69,9 @@
   p {
     @apply text-sm lg:text-base 2xl:text-[20px] font-normal font-dm-sans;
   }
+  label {
+    @apply text-lg 2xl:text-2xl tracking-tighter font-normal font-dm-sans list-none;
+  }
 }
 
 @layer components {
@@ -187,6 +190,20 @@
     }
     .socials-text {
       @apply max-md:flex max-md:flex-col items-center;
+    }
+  }
+
+  /* ---------------------------- Contact Section ---------------------------- */
+  .contact-heading-wrapper {
+    @apply flex-center flex-col;
+    .contact-heading {
+      @apply flex-center gap-x-2 md:gap-x-3 lg:gap-x-5 xl:gap-x-8;
+      .heading-text {
+        @apply font-test-manuka font-bold text-4xl md:text-6xl lg:text-8xl xl:text-9xl 2xl:text-[160px] 2xl:leading-44;
+      }
+      .amp-text {
+        @apply font-dm-sans text-4xl md:text-6xl lg:text-8xl xl:text-9xl 2xl:text-[160px] font-bold 2xl:leading-44;
+      }
     }
   }
 }

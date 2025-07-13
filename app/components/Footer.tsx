@@ -38,7 +38,11 @@ const Footer = () => {
               className="footer-arrow-position arrow-size"
             />
 
-            <CircleButton size="2xl" className="circle-btn-position" />
+            <CircleButton
+              text="Get in touch"
+              size="2xl"
+              className="circle-btn-position"
+            />
 
             <div className="contact-details">
               <p className="detail-text">
