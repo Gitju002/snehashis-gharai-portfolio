@@ -101,6 +101,29 @@ html.lenis body {
     @apply w-full mx-auto;
     container-type: inline-size;
   }
+
+  /* ---------------------------- Preloader ---------------------------- */
+
+  .introduction {
+    @apply h-screen w-screen flex items-center justify-center fixed z-[99] bg-[#141516];
+
+    svg {
+      @apply absolute top-0 w-full h-[calc(100%+300px)];
+
+      path {
+        @apply fill-[#141516];
+      }
+    }
+
+    p {
+      @apply flex text-white text-[42px] items-center absolute z-10;
+
+      span {
+        @apply block w-2.5 h-2.5 bg-white rounded-full mr-2.5;
+      }
+    }
+  }
+
   /* ---------------------------- Navbar ---------------------------- */
   .nav-container {
     @apply relative top-0 left-0 right-0 z-50;

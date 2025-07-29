@@ -77,6 +77,7 @@ export default function Home() {
             and modern web technologies.
           </p>
         </div>
+
         <Hero />
         <About />
         <Skills />

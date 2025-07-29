@@ -8,22 +8,26 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useMediaQuery } from "@/hooks/media-query";
 import Magnetic from "./ui/Magnetic";
+import { useLoadingContext } from "@/contexts/LoadingContext";
 
 export default function Hero() {
   const { isDesktop } = useMediaQuery();
+  const { hasLoadingCompleted, isLoading } = useLoadingContext();
   const snehashisDesktopRef = useRef<HTMLHeadingElement>(null);
   const gharaiDesktopRef = useRef<HTMLHeadingElement>(null);
   const snehashisMobileRef = useRef<HTMLHeadingElement>(null);
   const gharaiMobileRef = useRef<HTMLHeadingElement>(null);
   const arrowRef = useRef<HTMLImageElement>(null);
+  const isMouseMoveEnabledRef = useRef(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useGSAP(() => {
     gsap.registerPlugin(ScrollTrigger);
     // Desktop animations
     if (isDesktop) {
       gsap.from(snehashisDesktopRef.current, {
-        duration: 0.5,
-        y: "10%",
+        duration: 1,
+        y: "25%",
         opacity: 0,
         ease: "sine",
         delay: 0.3,
@@ -45,8 +49,8 @@ export default function Hero() {
     } else {
       // Mobile animations
       gsap.from(snehashisMobileRef.current, {
-        duration: 0.5,
-        y: "10%",
+        duration: 0.8,
+        y: "12%",
         opacity: 0,
         ease: "sine",
         delay: 0.3,
@@ -68,12 +72,12 @@ export default function Hero() {
     }
 
     gsap.set(arrowRef.current, {
-      rotate: -45,
+      rotate: -90,
       transformOrigin: "center center",
     });
 
     gsap.to(arrowRef.current, {
-      duration: 1,
+      duration: 1.5,
       rotate: 0,
       ease: "sine",
     });
@@ -84,10 +88,14 @@ export default function Hero() {
     gharaiMobileRef,
     isDesktop,
     arrowRef,
+    hasLoadingCompleted, // Add loading state to dependencies
   ]);
 
   useGSAP(() => {
     const handleMouseMove = (event: MouseEvent) => {
+      // Don't run animation if mouse move is not enabled
+      if (!isMouseMoveEnabledRef.current) return;
+
       const depth = 20;
       const moveX = (event.pageX - window.innerWidth / 2) / depth;
       const moveY = (event.pageY - window.innerHeight / 2) / depth;
@@ -102,14 +110,45 @@ export default function Hero() {
       });
     };
 
-    setTimeout(() => {
-      document.addEventListener("mousemove", handleMouseMove);
-    }, 1500);
+    // Add event listener when component mounts
+    document.addEventListener("mousemove", handleMouseMove);
 
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
     };
-  }, [".text-snehashis", ".text-gharai"]);
+  }, []); // Only run once on mount
+
+  // Separate effect to manage mouse move state
+  useGSAP(() => {
+    // Clear any existing timeout
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+
+    // If loading starts, disable mouse move and reset text positions
+    if (isLoading) {
+      isMouseMoveEnabledRef.current = false;
+      gsap.set([".text-snehashis", ".text-gharai"], {
+        x: 0,
+        y: 0,
+      });
+    }
+
+    // Enable mouse move with delay after loading completes
+    if (hasLoadingCompleted && !isLoading) {
+      timeoutRef.current = setTimeout(() => {
+        isMouseMoveEnabledRef.current = true;
+      }, 1500);
+    }
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+    };
+  }, [hasLoadingCompleted, isLoading]);
 
   return (
     <section id="hero" className="hero-container hero-image">
