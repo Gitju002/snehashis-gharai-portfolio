@@ -1,0 +1,21 @@
+{
+  "name": "Snehashis Gharai | Frontend Developer & Designer",
+  "short_name": "Snehashis Gharai",
+  "description": "Frontend Developer & Designer from India. Specializing in React.js, Next.js, and modern web technologies.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#111212",
+  "theme_color": "#111212",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
