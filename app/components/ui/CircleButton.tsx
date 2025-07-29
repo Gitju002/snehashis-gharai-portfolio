@@ -6,7 +6,7 @@ type CircleButtonProps = {
   onClick?: () => void;
   disabled?: boolean;
   type?: "button" | "submit";
-  text: string;
+  children: React.ReactNode;
   ariaLabel?: string;
 };
 
@@ -25,8 +25,8 @@ const CircleButton = ({
   onClick,
   disabled,
   type = "button",
-  text,
   ariaLabel = "Circle Button",
+  children,
 }: CircleButtonProps) => {
   return (
     <div>
@@ -50,7 +50,7 @@ const CircleButton = ({
               : "text-xl"
           } `}
         >
-          {text}
+          {children}
         </span>
       </button>
     </div>

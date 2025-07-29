@@ -1,9 +1,13 @@
-import React from "react";
+"use client";
+import React, { useRef } from "react";
 import VStack from "@/app/components/layout/VStack";
 import Container from "@/app/components/layout/Container";
 import Grid from "./layout/grid/Grid";
 import Separator from "./ui/Separator";
 import Image from "next/image";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
 const options = [
   {
@@ -26,7 +30,180 @@ const options = [
   },
 ];
 
+const phrase =
+  "Helping brands stand out in the digital world. I bring fresh ideas, a hands-on approach, and a passion for creating bold, meaningful work. No fluff — just real results, built together.";
+
+interface TextSplitRef {
+  refs: (HTMLSpanElement | null)[];
+  body: React.ReactElement[];
+  letters: React.ReactElement[];
+}
+
 const About = () => {
+  gsap.registerPlugin(ScrollTrigger);
+  const refs = useRef<TextSplitRef["refs"]>([]);
+  const povText = useRef<HTMLParagraphElement | null>(null);
+  const growthText = useRef<HTMLParagraphElement | null>(null);
+  const servicesHeadingRef = useRef<HTMLHeadingElement | null>(null);
+  const servicesGridRef = useRef<HTMLDivElement | null>(null);
+  const textContainer = useRef(null);
+  const arrowRef = useRef(null);
+  const body = useRef(null);
+
+  const splitWords = (phrase: string) => {
+    const body: React.ReactElement[] = [];
+
+    phrase.split(" ").forEach((word, i) => {
+      const letters = splitLetters(word);
+
+      body.push(
+        <h5 key={word + "_" + i} className="inline-block mr-2">
+          {letters}
+        </h5>
+      );
+    });
+
+    return body;
+  };
+
+  const splitLetters = (word: string) => {
+    const letters: React.ReactElement[] = [];
+
+    word.split("").forEach((letter, i) => {
+      letters.push(
+        <span
+          key={letter + "_" + i}
+          ref={(el) => {
+            refs.current.push(el);
+          }}
+          className="inline-block text-xl lg:text-2xl 2xl:text-[32px] font-normal font-dm-sans leading-tight"
+        >
+          {letter}
+        </span>
+      );
+    });
+
+    return letters;
+  };
+
+  useGSAP(() => {
+    createAnimation();
+
+    gsap.set(povText.current, { x: 30, opacity: 0.1 });
+    gsap.set(growthText.current, { x: -30, opacity: 0.1 });
+    gsap.set(servicesHeadingRef.current, { y: 30, opacity: 0.1 });
+    gsap.set(".service-item", { y: 200, opacity: 0 });
+    gsap.set(arrowRef.current, { x: 0, opacity: 1, rotate: 0 });
+
+    gsap.to(povText.current, {
+      x: 0,
+      opacity: 1,
+      duration: 0.8,
+      scrollTrigger: {
+        trigger: povText.current,
+        scrub: true,
+        start: "top 60%",
+        end: "bottom 40%",
+      },
+      ease: "none",
+    });
+
+    gsap.to(growthText.current, {
+      x: 0,
+      opacity: 1,
+      duration: 0.8,
+      scrollTrigger: {
+        trigger: growthText.current,
+        scrub: true,
+        start: "top 70%",
+        end: "bottom 60%",
+      },
+      ease: "none",
+    });
+
+    gsap.from(".image-content", {
+      duration: 1,
+      y: 200,
+      opacity: 0,
+      ease: "power2.out",
+      delay: "0.5",
+      scrollTrigger: {
+        trigger: ".image-content",
+        start: "top 85%",
+        toggleActions: "play none none reverse",
+      },
+    });
+
+    gsap.to(servicesHeadingRef.current, {
+      y: 0,
+      opacity: 1,
+      duration: 0.8,
+      scrollTrigger: {
+        trigger: servicesHeadingRef.current,
+        scrub: true,
+        start: "top 70%",
+        end: "bottom 30%",
+      },
+      ease: "none",
+    });
+
+    gsap.to(".service-item", {
+      duration: 1,
+      y: 0,
+      opacity: 1,
+      ease: "power2.out",
+      stagger: 0.3,
+      scrollTrigger: {
+        trigger: servicesGridRef.current,
+        start: "top 85%",
+        toggleActions: "play none none reverse",
+      },
+    });
+    gsap.set(arrowRef.current, { rotate: 0 });
+
+    gsap.from(arrowRef.current, {
+      x: -30,
+      rotate: -45,
+      opacity: 0.1,
+      duration: 0.5,
+      ease: "none",
+      scrollTrigger: {
+        trigger: arrowRef.current,
+        scrub: true,
+        start: "top 60%",
+        end: "bottom 40%",
+        toggleActions: "play none none reverse",
+      },
+    });
+  }, [
+    textContainer,
+    refs,
+    body,
+    povText,
+    growthText,
+    arrowRef,
+    servicesHeadingRef,
+    servicesGridRef,
+  ]);
+
+  const createAnimation = () => {
+    // Set initial opacity to 0.1 for all letter spans
+    gsap.set(refs.current, { opacity: 0.1 });
+
+    gsap.to(refs.current, {
+      scrollTrigger: {
+        trigger: textContainer.current,
+        scrub: true,
+        start: "top 70%",
+        end: "bottom 30%",
+      },
+      opacity: 1,
+      delay: 0.5,
+      ease: "none",
+      stagger: 0.008,
+    });
+  };
+
   return (
     <section id="about" aria-labelledby="about-heading">
       {/* Hidden SEO heading */}
@@ -38,18 +215,14 @@ const About = () => {
       <VStack>
         <Container className="flex-col flex-center gap-16">
           <Grid gap={8} cols="cols-6">
-            <div className="col-span-4">
+            <div ref={textContainer} className="col-span-4">
               {/* Text for SEO only */}
               <h3 className="sr-only">
                 Snehashis Gharai&apos;s Professional Mission
               </h3>
 
               {/* Motive of About Section */}
-              <h5>
-                Helping brands stand out in the digital world. I bring fresh
-                ideas, a hands-on approach, and a passion for creating bold,
-                meaningful work. No fluff — just real results, built together.
-              </h5>
+              <div ref={body}>{splitWords(phrase)}</div>
             </div>
             <div className="col-span-2">
               {/* Text for SEO only */}
@@ -58,7 +231,7 @@ const About = () => {
               </h3>
 
               {/* Unique Perspective Paragraph */}
-              <p>
+              <p ref={povText}>
                 The mix of my skills as a developer and designer — along with my
                 passion for photography — gives me a unique perspective
                 positions me in a unique place in the web design world.
@@ -70,7 +243,7 @@ const About = () => {
       </VStack>
 
       {/* Image Content */}
-      <VStack padding="none">
+      <VStack className="image-content" padding="none">
         <Container className="flex-col flex-center gap-16">
           <Grid cols="cols-6" className="gap-8">
             <div className="col-span-2 w-[75%]">
@@ -80,6 +253,7 @@ const About = () => {
 
               {/* Arrow SVG */}
               <Image
+                ref={arrowRef}
                 src={"/svgs/arrow.svg"}
                 height={80}
                 width={80}
@@ -88,7 +262,7 @@ const About = () => {
               />
 
               {/* Professional Growth Paragraph */}
-              <p>
+              <p ref={growthText}>
                 I always try to learn and adapt new skills to cope with modern
                 trends. With each project, work is pushed to new horizons,
                 always prioritizing quality.
@@ -103,6 +277,8 @@ const About = () => {
                 height={1266}
                 width={1013}
                 priority
+                data-scroll
+                data-scroll-speed="0.2"
               />
             </div>
           </Grid>
@@ -112,17 +288,22 @@ const About = () => {
       {/* Services */}
       <VStack>
         <Container>
-          <h2>I can help you with ...</h2>
-          <Grid cols="cols-6" className="gap-8 mt-4 md:mt-6 lg:mt-8 2xl:mt-16">
-            {options.map((option) => (
-              <article key={option.key} className="col-span-2">
-                <h6>{option.key}</h6>
-                <Separator width="100%" />
-                <h4>{option.title}</h4>
-                <p>{option.description}</p>
-              </article>
-            ))}
-          </Grid>
+          <h2 ref={servicesHeadingRef}> I can help you with ...</h2>
+          <div ref={servicesGridRef}>
+            <Grid
+              cols="cols-6"
+              className="gap-8 mt-4 md:mt-6 lg:mt-8 2xl:mt-16"
+            >
+              {options.map((option) => (
+                <article key={option.key} className="service-item col-span-2 ">
+                  <h6>{option.key}</h6>
+                  <Separator width="100%" />
+                  <h4>{option.title}</h4>
+                  <p>{option.description}</p>
+                </article>
+              ))}
+            </Grid>
+          </div>
         </Container>
       </VStack>
     </section>

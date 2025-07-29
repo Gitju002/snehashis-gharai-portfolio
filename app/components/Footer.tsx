@@ -4,6 +4,7 @@ import Container from "@/app/components/layout/Container";
 import Separator from "@/app/components/ui/Separator";
 import CircleButton from "./ui/CircleButton";
 import Image from "next/image";
+import Link from "next/link";
 
 const socialLinks = [
   { id: 1, name: "Github", url: "https://github.com/gitju002" },
@@ -38,11 +39,15 @@ const Footer = () => {
               className="footer-arrow-position arrow-size"
             />
 
-            <CircleButton
-              text="Get in touch"
-              size="2xl"
-              className="circle-btn-position"
-            />
+            <Link href="/contact">
+              <CircleButton
+                type="button"
+                size="2xl"
+                className="circle-btn-position"
+              >
+                Get in touch
+              </CircleButton>
+            </Link>
 
             <div className="contact-details">
               <p className="detail-text">

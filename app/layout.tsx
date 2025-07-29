@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
-import Navbar from "@/app/components/navigation/Navbar";
+import Header from "./components/navigation/Header";
+import ScrollWrapper from "./components/ui/ScrollWrapper";
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
@@ -157,8 +158,10 @@ export default function RootLayout({
         />
       </head>
       <body className={`${dmSans.variable} ${testManuka.variable} antialiased`}>
-        <Navbar />
-        {children}
+        <ScrollWrapper>
+          <Header />
+          {children}
+        </ScrollWrapper>
       </body>
     </html>
   );

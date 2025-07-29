@@ -1,8 +1,12 @@
+"use client";
 import React from "react";
 import VStack from "@/app/components/layout/VStack";
 import Container from "@/app/components/layout/Container";
 import Grid from "@/app/components/layout/grid/Grid";
 import Image from "next/image";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const skillsData = {
   FRONTEND: [
@@ -37,20 +41,67 @@ const skillsData = {
 };
 
 const Skills = () => {
+  gsap.registerPlugin(ScrollTrigger);
+
+  useGSAP(() => {
+    // Animate title first
+    gsap.from(".skills-title", {
+      duration: 0.8,
+      x: -100,
+      opacity: 0,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: ".skills-title",
+        start: "top 85%",
+        toggleActions: "play none none reverse",
+      },
+    });
+
+    // Animate each skill category individually on scroll
+    gsap.utils.toArray(".skills").forEach((skill) => {
+      gsap.from(skill as gsap.TweenTarget, {
+        duration: 0.8,
+        y: 60,
+        opacity: 0,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: skill as Element,
+          start: "top 85%",
+          toggleActions: "play none none reverse",
+        },
+      });
+    });
+
+    gsap.utils.toArray(".skill-items").forEach((skill) => {
+      gsap.from(skill as gsap.TweenTarget, {
+        duration: 0.8,
+        y: 60,
+        opacity: 0,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: skill as Element,
+          start: "top 85%",
+          end: "top 20%",
+          scrub: 1, // Links animation progress to scroll position
+          toggleActions: "play none none reverse",
+        },
+      });
+    });
+  }, []);
   return (
-    <section id="skills">
+    <section id="skills" className="skills-section">
       <VStack>
         <Container className="spacing-y">
-          <h2>My Stack</h2>
+          <h2 className="skills-title">My Stack</h2>
           <div className="spacing-y">
             {Object.entries(skillsData).map(([category, skills]) => (
-              <Grid key={category} cols="cols-6">
+              <Grid className="skills" key={category} cols="cols-6">
                 <h3 className="col-span-2">{category}</h3>
                 <div className="col-span-4 flex flex-wrap gap-x-14 gap-y-8">
                   {skills.map((skill) => (
                     <div
                       key={skill.name}
-                      className="flex-center gap-2 md:gap-4"
+                      className="flex-center gap-2 md:gap-4 skill-items"
                     >
                       <Image
                         src={skill.icon}
