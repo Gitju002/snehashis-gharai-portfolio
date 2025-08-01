@@ -7,6 +7,7 @@ import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { useTextReveal } from "./ui/TextReveal";
 
 const options = [
   {
@@ -32,14 +33,12 @@ const options = [
 const phrase =
   "Helping brands stand out in the digital world. I bring fresh ideas, a hands-on approach, and a passion for creating bold, meaningful work. No fluff — just real results, built together.";
 
-interface TextSplitRef {
-  refs: (HTMLSpanElement | null)[];
-  body: React.ReactElement[];
-  letters: React.ReactElement[];
-}
-
 const About = () => {
-  const refs = useRef<TextSplitRef["refs"]>([]);
+  const {
+    elements: textElements,
+    refs,
+    createAnimation: createTextAnimation,
+  } = useTextReveal(phrase);
   const povText = useRef<HTMLParagraphElement | null>(null);
   const growthText = useRef<HTMLParagraphElement | null>(null);
   const servicesHeadingRef = useRef<HTMLHeadingElement | null>(null);
@@ -48,46 +47,10 @@ const About = () => {
   const arrowRef = useRef(null);
   const body = useRef(null);
 
-  const splitWords = (phrase: string) => {
-    const body: React.ReactElement[] = [];
-
-    phrase.split(" ").forEach((word, i) => {
-      const letters = splitLetters(word);
-
-      body.push(
-        <h5 key={word + "_" + i} className="inline-block mr-2">
-          {letters}
-        </h5>
-      );
-    });
-
-    return body;
-  };
-
-  const splitLetters = (word: string) => {
-    const letters: React.ReactElement[] = [];
-
-    word.split("").forEach((letter, i) => {
-      letters.push(
-        <span
-          key={letter + "_" + i}
-          ref={(el) => {
-            refs.current.push(el);
-          }}
-          className="inline-block text-xl lg:text-2xl 2xl:text-[32px] font-normal font-dm-sans leading-tight"
-        >
-          {letter}
-        </span>
-      );
-    });
-
-    return letters;
-  };
-
   useGSAP(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    createAnimation();
+    createTextAnimation(textContainer.current);
 
     gsap.set(povText.current, { x: 30, opacity: 0.1 });
     gsap.set(growthText.current, { x: -30, opacity: 0.1 });
@@ -186,24 +149,6 @@ const About = () => {
     servicesGridRef,
   ]);
 
-  const createAnimation = () => {
-    // Set initial opacity to 0.1 for all letter spans
-    gsap.set(refs.current, { opacity: 0.1 });
-
-    gsap.to(refs.current, {
-      scrollTrigger: {
-        trigger: textContainer.current,
-        scrub: true,
-        start: "top 70%",
-        end: "bottom 30%",
-      },
-      opacity: 1,
-      delay: 0.5,
-      ease: "none",
-      stagger: 0.008,
-    });
-  };
-
   return (
     <section id="about" aria-labelledby="about-heading">
       {/* Hidden SEO heading */}
@@ -222,7 +167,7 @@ const About = () => {
               </h3>
 
               {/* Motive of About Section */}
-              <div ref={body}>{splitWords(phrase)}</div>
+              <div ref={body}>{textElements}</div>
             </div>
             <div className="col-span-2">
               {/* Text for SEO only */}
