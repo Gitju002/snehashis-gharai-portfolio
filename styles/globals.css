@@ -105,18 +105,25 @@ html.lenis body {
   /* ---------------------------- Preloader ---------------------------- */
 
   .introduction {
-    @apply h-screen w-screen flex items-center justify-center fixed z-[99] bg-[#141516];
+    background-image: url("/images/noise.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .introduction {
+    @apply h-screen w-screen flex items-center justify-center fixed z-[99];
 
     svg {
       @apply absolute top-0 w-full h-[calc(100%+300px)];
 
       path {
-        @apply fill-[#141516];
+        @apply fill-[#262525db];
       }
     }
 
     p {
-      @apply flex text-white text-[42px] items-center absolute z-10;
+      @apply flex text-white text-[40px] xl:text-[70px] items-center absolute z-10;
 
       span {
         @apply block w-2.5 h-2.5 bg-white rounded-full mr-2.5;
