@@ -4,9 +4,11 @@ import localFont from "next/font/local";
 import "../styles/globals.css";
 import Header from "../components/navigation/Header";
 import ScrollWrapper from "../components/ui/ScrollWrapper";
+import ScrollToTop from "../components/ui/ScrollToTop";
 import { AnimatePresence } from "framer-motion";
 import Preloader from "../components/PreLoader";
 import { LoadingProvider, useLoadingContext } from "../contexts/LoadingContext";
+import { NavigationProvider } from "../contexts/NavigationContext";
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
@@ -44,6 +46,8 @@ function AppContent({ Component, pageProps }: AppProps) {
         <Header />
         <Component {...pageProps} />
       </ScrollWrapper>
+
+      <ScrollToTop />
     </div>
   );
 }
@@ -51,7 +55,9 @@ function AppContent({ Component, pageProps }: AppProps) {
 export default function MyApp(appProps: AppProps) {
   return (
     <LoadingProvider>
-      <AppContent {...appProps} />
+      <NavigationProvider>
+        <AppContent {...appProps} />
+      </NavigationProvider>
     </LoadingProvider>
   );
 }
