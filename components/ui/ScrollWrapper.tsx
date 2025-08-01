@@ -2,6 +2,13 @@ import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import LocomotiveScroll from "locomotive-scroll";
 
+// Extend the Window interface to include locomotiveScroll
+declare global {
+  interface Window {
+    locomotiveScroll?: LocomotiveScroll;
+  }
+}
+
 export default function ScrollWrapper({
   children,
 }: {
@@ -24,6 +31,9 @@ export default function ScrollWrapper({
 
     scrollRef.current = locomotiveScroll;
 
+    // Make Locomotive Scroll instance globally accessible
+    window.locomotiveScroll = locomotiveScroll;
+
     // Force a resize event to recalculate dimensions
     setTimeout(() => {
       window.dispatchEvent(new Event("resize"));
@@ -34,6 +44,10 @@ export default function ScrollWrapper({
         scrollRef.current.destroy();
         scrollRef.current = null;
       }
+      // Clean up global reference
+      if (window.locomotiveScroll === locomotiveScroll) {
+        delete window.locomotiveScroll;
+      }
     };
   }, [pathname]);
 
@@ -43,5 +57,3 @@ export default function ScrollWrapper({
     </div>
   );
 }
-
-

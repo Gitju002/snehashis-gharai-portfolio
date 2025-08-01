@@ -12,6 +12,9 @@ import {
   useIsBelowBreakpoint,
 } from "@/hooks/media-query";
 import Magnetic from "../ui/Magnetic";
+import { scrollToSection, getSectionId } from "@/lib/utils";
+import { useLoadingContext } from "@/contexts/LoadingContext";
+import { useNavigationContext } from "@/contexts/NavigationContext";
 
 type NavItem = {
   href: string;
@@ -19,11 +22,10 @@ type NavItem = {
 };
 
 const navigationItems: NavItem[] = [
-  { href: "/", label: "Home" },
   { href: "/#about", label: "About" },
   { href: "/#skills", label: "Skills" },
-  { href: "/#experience", label: "Experience" },
   { href: "/#projects", label: "Work" },
+  { href: "/#experience", label: "Experience" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -37,10 +39,33 @@ export default function Header() {
   const header = useRef<HTMLDivElement>(null);
   const button = useRef<HTMLDivElement>(null);
   const [isActive, setIsActive] = useState(false);
+  const { setIsNavOpen } = useNavigationContext();
   const pathname = usePathname();
   const isAboveBreakpoint = useIsAboveBreakpoint("lg");
   const isBelowBreakpoint = useIsBelowBreakpoint("lg");
   const prevPathname = useRef(pathname);
+  const { hasLoadingCompleted } = useLoadingContext();
+
+  // Sync local state with context
+  useEffect(() => {
+    setIsNavOpen(isActive);
+  }, [isActive, setIsNavOpen]);
+
+  // Handle navigation click with smooth scrolling
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    const sectionId = getSectionId(href);
+
+    // If it's a section link and we're on the homepage, prevent default and scroll
+    if (sectionId && pathname === "/") {
+      e.preventDefault();
+      scrollToSection(sectionId, 100);
+    }
+    // For section links from other pages (like /contact), allow normal navigation to homepage
+    // For other links, let the default behavior handle it
+  };
 
   useEffect(() => {
     // Close navigation when pathname changes
@@ -49,6 +74,48 @@ export default function Header() {
       prevPathname.current = pathname;
     }
   }, [pathname]);
+
+  // Handle hash-based scrolling when page loads with a hash
+  useEffect(() => {
+    const handleHashScrolling = () => {
+      // Check if there's a hash in the URL and we're on the homepage
+      if (pathname === "/" && window.location.hash && hasLoadingCompleted) {
+        const hash = window.location.hash.substring(1); // Remove the # symbol
+
+        // Implement retry mechanism to ensure scrolling works
+        let retryCount = 0;
+        const maxRetries = 10;
+        const retryInterval = 200; // 200ms between retries
+
+        const attemptScroll = () => {
+          const element = document.getElementById(hash);
+          const locomotiveScroll = window.locomotiveScroll;
+
+          // Check if both element and locomotive scroll are available
+          if (element && locomotiveScroll) {
+            scrollToSection(hash, 100);
+            return true; // Success
+          }
+
+          // Retry if conditions aren't met and we haven't exceeded max retries
+          if (retryCount < maxRetries) {
+            retryCount++;
+            setTimeout(attemptScroll, retryInterval);
+          }
+
+          return false; // Failed
+        };
+
+        // Start the scroll attempt after a small initial delay
+        setTimeout(attemptScroll, 300);
+      }
+    };
+
+    // Only run when loading is completed
+    if (hasLoadingCompleted) {
+      handleHashScrolling();
+    }
+  }, [pathname, hasLoadingCompleted]);
 
   // Prevent body scroll when navigation is active
   useEffect(() => {
@@ -142,7 +209,12 @@ export default function Header() {
             {navigationItems.map((item, index) => (
               <div key={index} className="el">
                 <Magnetic>
-                  <Link href={item.href}>{item.label}</Link>
+                  <Link
+                    href={item.href}
+                    onClick={(e) => handleNavClick(e, item.href)}
+                  >
+                    {item.label}
+                  </Link>
                 </Magnetic>
                 <div className={"indicator"}></div>
               </div>
@@ -182,5 +254,3 @@ export default function Header() {
     </>
   );
 }
-
-
