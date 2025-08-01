@@ -36,21 +36,13 @@ export default function Preloader() {
   // Complex wave pattern with multiple curves
   const initialPath = `M0 0 L${dimension.width} 0 L${dimension.width} ${
     dimension.height
-  } C${dimension.width * 0.8} ${dimension.height + 200} ${
-    dimension.width * 0.6
-  } ${dimension.height + 300} ${dimension.width * 0.4} ${
-    dimension.height + 150
-  } C${dimension.width * 0.2} ${dimension.height + 50} ${
-    dimension.width * 0.1
-  } ${dimension.height + 250} 0 ${dimension.height} L0 0`;
+  } Q${dimension.width / 2} ${dimension.height + 300} 0 ${
+    dimension.height
+  }  L0 0`;
 
   const targetPath = `M0 0 L${dimension.width} 0 L${dimension.width} ${
     dimension.height
-  } C${dimension.width * 0.8} ${dimension.height} ${dimension.width * 0.6} ${
-    dimension.height
-  } ${dimension.width * 0.4} ${dimension.height} C${dimension.width * 0.2} ${
-    dimension.height
-  } ${dimension.width * 0.1} ${dimension.height} 0 ${dimension.height} L0 0`;
+  } Q${dimension.width / 6} ${dimension.height} 0 ${dimension.height}  L0 0`;
 
   // Morphing geometric shapes
   const circleToSquare = {
