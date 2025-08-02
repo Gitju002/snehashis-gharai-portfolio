@@ -8,6 +8,7 @@ type CircleButtonProps = {
   type?: "button" | "submit";
   children: React.ReactNode;
   ariaLabel?: string;
+  ref?: React.Ref<HTMLButtonElement>;
 };
 
 const buttonSizes = {
@@ -27,10 +28,12 @@ const CircleButton = ({
   type = "button",
   ariaLabel = "Circle Button",
   children,
+  ref,
 }: CircleButtonProps) => {
   return (
     <div>
       <button
+        ref={ref}
         className={`circle-btn ${buttonSizes[size]} ${className}`}
         onClick={onClick}
         disabled={disabled}
@@ -58,5 +61,3 @@ const CircleButton = ({
 };
 
 export default CircleButton;
-
-

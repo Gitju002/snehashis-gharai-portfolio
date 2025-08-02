@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useRef } from "react";
 import VStack from "@/components/layout/VStack";
 import Container from "@/components/layout/Container";
 import Separator from "@/components/ui/Separator";
 import CircleButton from "./ui/CircleButton";
 import Image from "next/image";
 import Link from "next/link";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useIsAboveBreakpoint } from "@/hooks/media-query";
 
 const socialLinks = [
   { id: 1, name: "Github", url: "https://github.com/gitju002" },
@@ -18,6 +22,51 @@ const socialLinks = [
 ];
 
 const Footer = () => {
+  const circleBtn = useRef<HTMLButtonElement>(null);
+  const arrowRef = useRef<HTMLImageElement>(null);
+  const isAboveLg = useIsAboveBreakpoint("lg");
+
+  useGSAP(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    if (circleBtn.current) {
+      if (isAboveLg) {
+        gsap.set(circleBtn.current, { x: 100 });
+      } else {
+        gsap.set(circleBtn.current, { x: 30 });
+      }
+
+      gsap.to(circleBtn.current, {
+        duration: 1,
+        x: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: circleBtn.current,
+          scrub: true,
+          toggleActions: "play none none reverse",
+        },
+      });
+    }
+    if (arrowRef.current) {
+      gsap.fromTo(
+        arrowRef.current,
+        {
+          rotate: "120deg",
+          ease: "none",
+        },
+        {
+          rotate: "90deg",
+          ease: "none",
+          scrollTrigger: {
+            trigger: arrowRef.current,
+            scrub: true,
+            end: "bottom 20%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+    }
+  }, [circleBtn, arrowRef]);
+
   return (
     <section id="footer">
       <VStack>
@@ -32,6 +81,7 @@ const Footer = () => {
             <Separator className="mt-10" />
 
             <Image
+              ref={arrowRef}
               src={"/svgs/arrow.svg"}
               height={80}
               width={80}
@@ -44,6 +94,7 @@ const Footer = () => {
                 type="button"
                 size="2xl"
                 className="circle-btn-position"
+                ref={circleBtn}
               >
                 Get in touch
               </CircleButton>
@@ -92,5 +143,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
-
