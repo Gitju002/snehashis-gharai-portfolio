@@ -29,8 +29,8 @@ export default function LinkComponent({
   ) => {
     const sectionId = getSectionId(href);
 
-    // If it's a section link and we're on the homepage, prevent default and scroll
-    if (sectionId && pathname === "/") {
+    // If it's a section link and we're on the profession page, prevent default and scroll
+    if (sectionId && pathname === "/profession") {
       e.preventDefault();
 
       // Add small delay for mobile nav to close
@@ -38,7 +38,7 @@ export default function LinkComponent({
         scrollToSection(sectionId, 100);
       }, 300);
     }
-    // For section links from other pages (like /contact), allow normal navigation to homepage
+    // For section links from other pages (like /contact), allow normal navigation to profession page
     // For other links, let the default behavior handle it
   };
 

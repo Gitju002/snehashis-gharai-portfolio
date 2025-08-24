@@ -1,32 +1,38 @@
+import Link from "next/link";
 import React from "react";
+import { usePathname } from "next/navigation";
 
 const SwitchButton = () => {
-  const [isActive, setIsActive] = React.useState<string>("profession");
+  const pathname = usePathname();
+
+  // Determine active state based on current route
+  const getActiveState = () => {
+    if (pathname === "/profession") return "profession";
+    if (pathname === "/passion") return "passion";
+    return "profession"; // default fallback
+  };
+
+  const isActive = getActiveState();
 
   const types = {
     profession: "Profession",
     passion: "Passion",
   };
 
-  const handleClick = (key: string) => {
-    setIsActive(key);
-    console.log(key);
-  };
   return (
     <div className="switch-btn">
       {Object.entries(types).map(([key, label], index) => (
-        <button
+        <Link
+          href={key === "profession" ? "/profession" : "/passion"}
           key={index}
-          onClick={() => handleClick(key)}
-          className={`btn-icon ${isActive === key ? "active" : ""}`}
         >
-          {label}
-        </button>
+          <button className={`btn-icon ${isActive === key ? "active" : ""}`}>
+            {label}
+          </button>
+        </Link>
       ))}
     </div>
   );
 };
 
 export default SwitchButton;
-
-

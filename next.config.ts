@@ -7,6 +7,17 @@ const nextConfig: NextConfig = {
   // Other configurations can go here
   trailingSlash: false,
 
+  // Redirects
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/profession",
+        permanent: true,
+      },
+    ];
+  },
+
   // Rewrites for API routes
   async rewrites() {
     return [
