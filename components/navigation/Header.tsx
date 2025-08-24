@@ -22,10 +22,10 @@ type NavItem = {
 };
 
 const navigationItems: NavItem[] = [
-  { href: "/#about", label: "About" },
-  { href: "/#skills", label: "Skills" },
-  { href: "/#projects", label: "Work" },
-  { href: "/#experience", label: "Experience" },
+  { href: "/profession#about", label: "About" },
+  { href: "/profession#skills", label: "Skills" },
+  { href: "/profession#projects", label: "Work" },
+  { href: "/profession#experience", label: "Experience" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -58,12 +58,12 @@ export default function Header() {
   ) => {
     const sectionId = getSectionId(href);
 
-    // If it's a section link and we're on the homepage, prevent default and scroll
-    if (sectionId && pathname === "/") {
+    // If it's a section link and we're on the profession page, prevent default and scroll
+    if (sectionId && pathname === "/profession") {
       e.preventDefault();
       scrollToSection(sectionId, 100);
     }
-    // For section links from other pages (like /contact), allow normal navigation to homepage
+    // For section links from other pages (like /contact), allow normal navigation to profession page
     // For other links, let the default behavior handle it
   };
 
@@ -78,8 +78,12 @@ export default function Header() {
   // Handle hash-based scrolling when page loads with a hash
   useEffect(() => {
     const handleHashScrolling = () => {
-      // Check if there's a hash in the URL and we're on the homepage
-      if (pathname === "/" && window.location.hash && hasLoadingCompleted) {
+      // Check if there's a hash in the URL and we're on the profession page
+      if (
+        pathname === "/profession" &&
+        window.location.hash &&
+        hasLoadingCompleted
+      ) {
         const hash = window.location.hash.substring(1); // Remove the # symbol
 
         // Implement retry mechanism to ensure scrolling works
@@ -200,7 +204,7 @@ export default function Header() {
       {isAboveBreakpoint && (
         <div ref={header} className={"header"}>
           <div className="flex-center">
-            <Link href="/" aria-label="Go to homepage">
+            <Link href="/profession" aria-label="Go to homepage">
               <Image src="/images/logo.png" height={30} width={85} alt="Logo" />
             </Link>
           </div>
@@ -226,7 +230,7 @@ export default function Header() {
       {isBelowBreakpoint && (
         <div ref={header} className={"header"}>
           <div className="flex-center">
-            <Link href="/" aria-label="Go to homepage">
+            <Link href="/profession" aria-label="Go to homepage">
               <Image src="/images/logo.png" height={30} width={85} alt="Logo" />
             </Link>
           </div>

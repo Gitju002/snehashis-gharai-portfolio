@@ -12,25 +12,37 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>${baseUrl}/#about</loc>
+    <loc>${baseUrl}/profession</loc>
+    <lastmod>${new Date().toISOString()}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>${baseUrl}/passion</loc>
+    <lastmod>${new Date().toISOString()}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>${baseUrl}/profession#about</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>${baseUrl}/#skills</loc>
+    <loc>${baseUrl}/profession#skills</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>${baseUrl}/#projects</loc>
+    <loc>${baseUrl}/profession#projects</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>${baseUrl}/#experience</loc>
+    <loc>${baseUrl}/profession#experience</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
