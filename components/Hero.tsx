@@ -10,7 +10,12 @@ import { useMediaQuery } from "@/hooks/media-query";
 import Magnetic from "./ui/Magnetic";
 import { useLoadingContext } from "@/contexts/LoadingContext";
 
-export default function Hero() {
+type HeroProps = {
+  title: string;
+  subtitle: string;
+};
+
+export default function Hero({ title, subtitle }: HeroProps) {
   const { isDesktop } = useMediaQuery();
   const { hasLoadingCompleted, isLoading } = useLoadingContext();
   const snehashisDesktopRef = useRef<HTMLHeadingElement>(null);
@@ -20,6 +25,15 @@ export default function Hero() {
   const arrowRef = useRef<HTMLImageElement>(null);
   const isMouseMoveEnabledRef = useRef(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Parse title and subtitle for better structure
+  const titleParts = title.split(" "); // Split by space to get ["SNEHASHIS", "GHARAI"]
+  const firstName = titleParts[0] || "";
+  const lastName = titleParts[1] || "";
+
+  const subtitleParts = subtitle.split("&"); // Split by & to get two parts
+  const subtitleFirstPart = subtitleParts[0]?.trim() || "";
+  const subtitleSecondPart = subtitleParts[1]?.trim() || "";
 
   useGSAP(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -179,9 +193,9 @@ export default function Hero() {
                   className="arrow-size"
                 />
                 <h2 className="text-subtitle" role="banner">
-                  FRONTEND DEVELOPER <span className="ampersand">&amp;</span>{" "}
+                  {subtitleFirstPart} <span className="ampersand">&amp;</span>{" "}
                   <br />
-                  DESIGNER FROM INDIA
+                  {subtitleSecondPart}
                 </h2>
 
                 <h1
@@ -189,7 +203,7 @@ export default function Hero() {
                   className="text-snehashis"
                   aria-label="Snehashis Gharai Name"
                 >
-                  SNEHASHIS
+                  {firstName}
                 </h1>
               </div>
 
@@ -198,7 +212,7 @@ export default function Hero() {
                 className="text-gharai"
                 aria-label="Snehashis Gharai Surname"
               >
-                GHARAI
+                {lastName}
               </h1>
             </div>
           )}
@@ -210,10 +224,10 @@ export default function Hero() {
                 ref={snehashisMobileRef}
                 className="font-test-manuka font-bold"
               >
-                SNEHASHIS
+                {firstName}
               </h1>
               <h1 ref={gharaiMobileRef} className="font-test-manuka font-bold">
-                GHARAI
+                {lastName}
               </h1>
             </div>
           )}
@@ -234,9 +248,9 @@ export default function Hero() {
               className="arrow-size"
             />
             <h2 className="text-2xl font-test-manuka font-bold tracking-normal ">
-              FRONTEND DEVELOPER{" "}
+              {subtitleFirstPart}{" "}
               <span className="font-dm-sans font-bold text-2xl"> &amp; </span>{" "}
-              DESIGNER FROM INDIA
+              {subtitleSecondPart}
             </h2>
           </div>
         )}

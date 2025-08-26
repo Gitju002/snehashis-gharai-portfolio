@@ -433,6 +433,60 @@ html.lenis body {
       }
     }
   }
+
+  /* ---------------------------- Zoom Parallax Section ---------------------------- */
+  .zoom-parallax-section {
+    @apply text-white w-full;
+
+    .main-container {
+      @apply h-[300vh] relative;
+      .sticky-container {
+        @apply sticky overflow-hidden top-0 h-screen w-full;
+        .each-element {
+          @apply flex-center size-full top-0 absolute;
+          .image-container {
+            @apply relative w-[25vw] aspect-video;
+            img {
+              @apply object-cover;
+            }
+          }
+          &:nth-of-type(2) {
+            .image-container {
+              @apply w-[25vw] h-[23vh] top-[-32vh] left-[0vw];
+            }
+          }
+          &:nth-of-type(3) {
+            .image-container {
+              @apply top-[-17vh] left-[-22vw] w-[17vw] h-[53vh];
+            }
+          }
+          &:nth-of-type(4) {
+            .image-container {
+              @apply top-[-18.5vh] left-[23vw] w-[18vw] h-[50vh];
+            }
+          }
+          &:nth-of-type(5) {
+            .image-container {
+              @apply top-[30vh] left-[2.5vw] w-[20vw] h-[25vh];
+            }
+          }
+          &:nth-of-type(6) {
+            .image-container {
+              @apply top-[30vh] left-[-21.5vw] w-[25vw] h-[25vh];
+            }
+          }
+          &:nth-of-type(7) {
+            .image-container {
+              @apply top-[23vh] left-[26vw] w-[24vw] h-[23vh];
+            }
+          }
+        }
+        .text-info-container {
+          @apply absolute inset-0 flex flex-col justify-end p-6 z-50;
+        }
+      }
+    }
+  }
 }
 
 /* Utility classes */
@@ -458,6 +512,10 @@ html.lenis body {
 
 @utility spacing-y {
   @apply space-y-6 md:space-y-8 lg:space-y-12 2xl:space-y-16;
+}
+
+@utility linear-gradient-black {
+  @apply absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent h-64 pointer-events-none;
 }
 
 /* Screen reader only content */

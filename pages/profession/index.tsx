@@ -81,8 +81,18 @@ export default function Profession() {
           </p>
         </div>
 
-        <Hero />
-        <About />
+        <Hero
+          title="SNEHASHIS GHARAI"
+          subtitle="FRONTEND DEVELOPER & DESIGNER FROM INDIA"
+        />
+        <About
+          mainText="Helping brands stand out in the digital world. I bring fresh ideas, a hands-on approach, and a passion for creating bold, meaningful work. No fluff — just real results, built together."
+          uniquePerspectiveText="The mix of my skills as a developer and designer — along with my passion for photography — gives me a unique perspective positions me in a unique place in the web design world."
+          professionalGrowthText="I always try to learn and adapt new skills to cope with modern trends. With each project, work is pushed to new horizons, always prioritizing quality."
+          servicesHeading="I can help you with ..."
+          showImage={true}
+          showServices={true}
+        />
         <Skills />
         <Projects />
         <Experience />

@@ -9,7 +9,22 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { useTextReveal } from "./ui/TextReveal";
 
-const options = [
+type AboutProps = {
+  // Text content props
+  mainText: string;
+  uniquePerspectiveText?: string;
+  professionalGrowthText?: string;
+  servicesHeading?: string;
+
+  // Visibility props
+  showImage?: boolean;
+  showServices?: boolean;
+
+  // Services data
+  services?: { key: string; title: string; description: string }[];
+};
+
+const defaultServices = [
   {
     key: "01",
     title: "DESIGN",
@@ -30,15 +45,20 @@ const options = [
   },
 ];
 
-const phrase =
-  "Helping brands stand out in the digital world. I bring fresh ideas, a hands-on approach, and a passion for creating bold, meaningful work. No fluff — just real results, built together.";
-
-const About = () => {
+const About = ({
+  mainText,
+  uniquePerspectiveText,
+  professionalGrowthText,
+  servicesHeading,
+  showImage = true,
+  showServices = true,
+  services = defaultServices,
+}: AboutProps) => {
   const {
     elements: textElements,
     refs,
     createAnimation: createTextAnimation,
-  } = useTextReveal(phrase);
+  } = useTextReveal(mainText);
   const povText = useRef<HTMLParagraphElement | null>(null);
   const growthText = useRef<HTMLParagraphElement | null>(null);
   const servicesHeadingRef = useRef<HTMLHeadingElement | null>(null);
@@ -176,11 +196,7 @@ const About = () => {
               </h3>
 
               {/* Unique Perspective Paragraph */}
-              <p ref={povText}>
-                The mix of my skills as a developer and designer — along with my
-                passion for photography — gives me a unique perspective
-                positions me in a unique place in the web design world.
-              </p>
+              <p ref={povText}>{uniquePerspectiveText}</p>
             </div>
           </Grid>
           <Separator width="75%" />
@@ -188,69 +204,72 @@ const About = () => {
       </VStack>
 
       {/* Image Content */}
-      <VStack className="image-content" padding="none">
-        <Container className="flex-col flex-center gap-16">
-          <Grid cols="cols-6" className="gap-8">
-            <div className="col-span-2 w-[75%]">
-              <h3 className="sr-only">
-                Snehashis Gharai&apos;s Professional Growth
-              </h3>
+      {showImage && (
+        <VStack className="image-content" padding="none">
+          <Container className="flex-col flex-center gap-16">
+            <Grid cols="cols-6" className="gap-8">
+              <div className="col-span-2 w-[75%]">
+                <h3 className="sr-only">
+                  Snehashis Gharai&apos;s Professional Growth
+                </h3>
 
-              {/* Arrow SVG */}
-              <Image
-                ref={arrowRef}
-                src={"/svgs/arrow.svg"}
-                height={80}
-                width={80}
-                alt="Decorative arrow pointing to Snehashis Gharai"
-                className="arrow-size"
-              />
+                {/* Arrow SVG */}
+                <Image
+                  ref={arrowRef}
+                  src={"/svgs/arrow.svg"}
+                  height={80}
+                  width={80}
+                  alt="Decorative arrow pointing to Snehashis Gharai"
+                  className="arrow-size"
+                />
 
-              {/* Professional Growth Paragraph */}
-              <p ref={growthText}>
-                I always try to learn and adapt new skills to cope with modern
-                trends. With each project, work is pushed to new horizons,
-                always prioritizing quality.
-              </p>
-            </div>
+                {/* Professional Growth Paragraph */}
+                <p ref={growthText}>{professionalGrowthText}</p>
+              </div>
 
-            {/* About Image */}
-            <div className="col-span-4">
-              <Image
-                src={"/images/about-image.jpg"}
-                alt="Snehashis Gharai - Frontend Developer and Designer working on projects"
-                height={1266}
-                width={1013}
-                priority
-                data-scroll
-                data-scroll-speed="0.2"
-              />
-            </div>
-          </Grid>
-        </Container>
-      </VStack>
+              {/* About Image */}
+              <div className="col-span-4">
+                <Image
+                  src={"/images/about-image.jpg"}
+                  alt="Snehashis Gharai - Frontend Developer and Designer working on projects"
+                  height={1266}
+                  width={1013}
+                  priority
+                  data-scroll
+                  data-scroll-speed="0.2"
+                />
+              </div>
+            </Grid>
+          </Container>
+        </VStack>
+      )}
 
       {/* Services */}
-      <VStack>
-        <Container>
-          <h2 ref={servicesHeadingRef}> I can help you with ...</h2>
-          <div ref={servicesGridRef}>
-            <Grid
-              cols="cols-6"
-              className="gap-8 mt-4 md:mt-6 lg:mt-8 2xl:mt-16"
-            >
-              {options.map((option) => (
-                <article key={option.key} className="service-item col-span-2 ">
-                  <h6>{option.key}</h6>
-                  <Separator width="100%" />
-                  <h4>{option.title}</h4>
-                  <p>{option.description}</p>
-                </article>
-              ))}
-            </Grid>
-          </div>
-        </Container>
-      </VStack>
+      {showServices && (
+        <VStack>
+          <Container>
+            <h2 ref={servicesHeadingRef}>{servicesHeading}</h2>
+            <div ref={servicesGridRef}>
+              <Grid
+                cols="cols-6"
+                className="gap-8 mt-4 md:mt-6 lg:mt-8 2xl:mt-16"
+              >
+                {services.map((service) => (
+                  <article
+                    key={service.key}
+                    className="service-item col-span-2 "
+                  >
+                    <h6>{service.key}</h6>
+                    <Separator width="100%" />
+                    <h4>{service.title}</h4>
+                    <p>{service.description}</p>
+                  </article>
+                ))}
+              </Grid>
+            </div>
+          </Container>
+        </VStack>
+      )}
     </section>
   );
 };
