@@ -11,11 +11,12 @@ import Magnetic from "./ui/Magnetic";
 import { useLoadingContext } from "@/contexts/LoadingContext";
 
 type HeroProps = {
+  heroImage: string;
   title: string;
   subtitle: string;
 };
 
-export default function Hero({ title, subtitle }: HeroProps) {
+export default function Hero({ heroImage, title, subtitle }: HeroProps) {
   const { isDesktop } = useMediaQuery();
   const { hasLoadingCompleted, isLoading } = useLoadingContext();
   const snehashisDesktopRef = useRef<HTMLHeadingElement>(null);
@@ -165,7 +166,7 @@ export default function Hero({ title, subtitle }: HeroProps) {
   }, [hasLoadingCompleted, isLoading]);
 
   return (
-    <section id="hero" className="hero-container hero-image">
+    <section id="hero" className={`hero-container ${heroImage}`}>
       <VStack>
         <Container className="hero-container-wrapper">
           {/* SEO optimized content */}

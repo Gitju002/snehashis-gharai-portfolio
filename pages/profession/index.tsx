@@ -82,6 +82,7 @@ export default function Profession() {
         </div>
 
         <Hero
+          heroImage="hero-image"
           title="SNEHASHIS GHARAI"
           subtitle="FRONTEND DEVELOPER & DESIGNER FROM INDIA"
         />

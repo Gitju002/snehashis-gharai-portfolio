@@ -2,10 +2,13 @@ import React from "react";
 import ZoomParallax from "@/components/ZoomParallax";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
+import ExploreCardSection from "@/components/ExploreCardSection";
+import Footer from "@/components/Footer";
 export default function Passion() {
   return (
     <main>
       <Hero
+        heroImage="hero-about-image"
         title="SNEHASHIS GHARAI"
         subtitle="PHOTOGRAPHER & CINEMATOGRAPHER"
       />
@@ -16,6 +19,8 @@ export default function Passion() {
         showServices={false}
       />
       <ZoomParallax />
+      <ExploreCardSection />
+      <Footer />
     </main>
   );
 }
