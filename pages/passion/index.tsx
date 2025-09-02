@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import ExploreCardSection from "@/components/ExploreCardSection";
 import Footer from "@/components/Footer";
+import HorizontalScroll from "@/components/HorizontalScroll";
 export default function Passion() {
   return (
     <main>
@@ -20,6 +21,7 @@ export default function Passion() {
       />
       <ZoomParallax />
       <ExploreCardSection />
+      <HorizontalScroll />
       <Footer />
     </main>
   );
