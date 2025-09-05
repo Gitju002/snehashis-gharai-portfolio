@@ -496,7 +496,7 @@ html.lenis body {
 
   /* ---------------------------- Explore Card Section ---------------------------- */
   .explore-card-container {
-    @apply bg-foreground w-[55vw]  -rotate-3 hover:transform hover:rotate-0 transition-transform duration-400 ease-in-out;
+    @apply bg-foreground w-[55vw] h-fit -rotate-3 hover:transform hover:rotate-0 transition-transform duration-400 ease-in-out;
     .explore-card-content {
       @apply p-8 size-full;
       .explore-card-image-wrapper {
